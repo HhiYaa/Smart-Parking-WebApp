@@ -1,0 +1,23 @@
+// /server/index.js
+const express = require('express');
+const app = express();
+const cors = require('cors');
+app.use(cors());
+app.use(express.json());
+
+// Mock data
+let parkingSpots = [
+  { id: 1, name: 'Main Street Parking', address: '123 Main St' },
+  { id: 2, name: '2nd Avenue Lot', address: '456 2nd Ave' }
+];
+
+app.get('/api/parkingSpots', (req, res) => {
+  res.json(parkingSpots);
+});
+
+app.post('/api/book', (req, res) => {
+  console.log(`Booked spot ID: ${req.body.spotId}`);
+  res.json({ message: 'Booking confirmed' });
+});
+
+app.listen(5000, () => console.log('Server running on port 5000'));
