@@ -1,9 +1,9 @@
 # Smart-Parking-WebApp
 Smart Parking WebApp
  * Smart Parking Web App
- *
+   
  * A full-stack web app allowing users to search, view, and book real-time parking spots.
- *
+   
  * Features:
  * - React frontend: Responsive UI, Google Maps integration
  * - Node.js backend: RESTful APIs for data and booking management
