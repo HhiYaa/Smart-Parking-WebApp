@@ -1,0 +1,73 @@
+// /src/App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Booking from './components/Booking';
+import Login from './components/Login';
+import './App.css';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/booking/:id' element={<Booking />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
+// /src/components/Home.jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function Home() {
+  const [spots, setSpots] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/parkingSpots').then(res => setSpots(res.data));
+  }, []);
+
+  return (
+    <div>
+      <h1>Find a Parking Spot</h1>
+      <div id="map" style={{ height: '400px', width: '100%' }}></div>
+      {spots.map(spot => (
+        <div key={spot.id}>
+          <h2>{spot.name}</h2>
+          <p>{spot.address}</p>
+          <a href={`/booking/${spot.id}`}>Book Now</a>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default Home;
+
+// /src/components/Booking.jsx
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
+function Booking() {
+  const { id } = useParams();
+  const [message, setMessage] = useState('');
+
+  const handleBooking = () => {
+    axios.post('/api/book', { spotId: id }).then(() => setMessage('Booking confirmed!'));
+  };
+
+  return (
+    <div>
+      <h1>Booking Spot {id}</h1>
+      <button onClick={handleBooking}>Confirm Booking</button>
+      {message && <p>{message}</p>}
+    </div>
+  );
+}
+
+export default Booking;
