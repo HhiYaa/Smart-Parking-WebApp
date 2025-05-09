@@ -16,3 +16,8 @@ Smart Parking WebApp
  * - Backend: node index.js (on port 5000)
  * - Set up proxy in package.json for API calls
  */
+
+ // 1. Frontend: Deploy to AWS S3 bucket as a static website.
+// 2. Backend: Use AWS Lambda + API Gateway (convert Express routes to Lambda handlers using serverless-http).
+// 3. Database: DynamoDB tables for users, parking spots, and reservations.
+
